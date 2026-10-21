@@ -54,11 +54,9 @@ section+section{margin-top:40px}
 .tag{margin-top:4px;font-size:.75rem;color:var(--gold);font-weight:600}
 .live{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:720px){.live{grid-template-columns:1fr}}
-.player{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
-.frame{position:relative;aspect-ratio:16/9;background:#000}
-.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.cap{display:block;padding:10px 14px;font-family:Marcellus,Georgia,serif;font-size:1.1rem;color:inherit;text-decoration:none}
-.cap:hover{color:var(--gold)}
+.live .banner{min-height:83px}
+.live .tag{color:#ff7777}
+.live-status{color:var(--muted);text-align:center;font-size:.9rem;margin:0 0 16px}
 .art svg{display:block}
 .soon{cursor:default}
 .soon:hover{transform:none;border-color:#6b5230;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 14px rgba(0,0,0,.45)}
@@ -78,8 +76,9 @@ section+section{margin-top:40px}
   <p class="join"><a href="https://discord.gg/ujcMBqwVjS" target="_blank" rel="noopener noreferrer">JOIN OUR DISCORD</a></p>
   <section id="live">
     <h2>LIVE NOW</h2>
+    <p class="live-status" id="live-status">Checking Twitch streams…</p>
     <div class="live" id="live-list"></div>
-    <p class="empty" id="live-empty">Not Enough Resources</p>
+    <p class="empty" id="live-empty" hidden>Nobody is live right now.</p>
   </section>
   <section>
     <h2>Addons</h2>
@@ -146,32 +145,105 @@ const CLASS_DISCORDS = [
 const TWITCH = [
 ];
 
-function renderLive(){
+async function renderLive(){
   const box = document.getElementById('live-list');
+  const empty = document.getElementById('live-empty');
+  const status = document.getElementById('live-status');
+  const accounts = GUILD_SOCIALS.concat(TWITCH.map(t=>({
+    name:t.name||t.channel,
+    desc:t.desc||'Watch live on Twitch.',
+    tag:'Twitch', url:'https://www.twitch.tv/'+t.channel,
+    color:'#6441a5', image:'', twitch:t.channel
+  }))).filter((account, index, all) => account.twitch &&
+    all.findIndex(other => other.twitch.toLowerCase() === account.twitch.toLowerCase()) === index);
+
   box.textContent = '';
-  TWITCH.forEach(t=>{
-    const card = document.createElement('div');
-    card.className = 'player';
-    const frame = document.createElement('div');
-    frame.className = 'frame';
-    const ifr = document.createElement('iframe');
-    ifr.src = 'https://player.twitch.tv/?channel='+encodeURIComponent(t.channel)+'&parent='+encodeURIComponent(location.hostname)+'&muted=true&autoplay=false';
-    ifr.title = (t.name||t.channel)+' on Twitch';
-    ifr.loading = 'lazy';
-    ifr.allowFullscreen = true;
-    frame.append(ifr);
-    const cap = document.createElement('a');
-    cap.className = 'cap';
-    cap.href = 'https://www.twitch.tv/'+encodeURIComponent(t.channel);
-    cap.target = '_blank';
-    cap.rel = 'noopener noreferrer';
-    cap.textContent = t.name||t.channel;
-    card.append(frame,cap);
-    box.append(card);
+  empty.hidden = true;
+  status.hidden = false;
+  status.textContent = accounts.length ? 'Checking Twitch streams…' : 'No Twitch accounts are configured in Guild Socials.';
+  if (!accounts.length) return;
+
+  // DecAPI provides a public status endpoint, avoiding a Twitch client secret in GitHub Pages.
+  // Unknown responses are treated as errors, never as proof that a channel is live.
+  const results = await Promise.all(accounts.map(async account => {
+    try {
+      const response = await fetch('https://decapi.me/twitch/status/' + encodeURIComponent(account.twitch), {
+        cache: 'no-store'
+      });
+      if (!response.ok) throw new Error('Status request failed');
+      const result = (await response.text()).trim().toLowerCase();
+      if (/\boffline\b|\bnot live\b|\bnot currently streaming\b/.test(result)) {
+        return {account, live:false, checked:true};
+      }
+      if (/\bonline\b|\bis live\b|\bcurrently live\b|\bstreaming\b/.test(result)) {
+        return {account, live:true, checked:true};
+      }
+      throw new Error('Unrecognized status response');
+    } catch (error) {
+      console.warn('Could not check Twitch status for ' + account.twitch, error);
+      return {account, live:false, checked:false};
+    }
+  }));
+
+  const liveAccounts = results.filter(result => result.checked && result.live).map(result => result.account);
+  const failedChecks = results.some(result => !result.checked);
+  liveAccounts.forEach(account => {
+    const link = document.createElement('a');
+    link.className = 'banner';
+    link.href = 'https://www.twitch.tv/' + encodeURIComponent(account.twitch);
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.setAttribute('aria-label', account.name + ' is live on Twitch');
+
+    const art = document.createElement('div');
+    art.className = 'art';
+    art.setAttribute('aria-hidden', 'true');
+    art.style.background = 'linear-gradient(135deg,' + (account.color || '#6441a5') + ',#10202b)';
+    const letter = document.createElement('span');
+    letter.textContent = (account.name || account.twitch).charAt(0);
+    art.append(letter);
+
+    const imageUrl = account.image || 'https://unavatar.io/twitch/' + encodeURIComponent(account.twitch);
+    const img = document.createElement('img');
+    img.alt = '';
+    img.referrerPolicy = 'no-referrer';
+    img.onload = () => { letter.hidden = true; };
+    img.onerror = () => img.remove();
+    img.src = imageUrl;
+    art.append(img);
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    const name = document.createElement('p');
+    name.className = 'name';
+    name.textContent = account.name || account.twitch;
+    const description = document.createElement('p');
+    description.className = 'desc';
+    description.textContent = account.desc || 'Watch live on Twitch.';
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = '● LIVE NOW';
+    info.append(name, description, tag);
+    link.append(art, info);
+    box.append(link);
   });
-  const LINES = ["Not Enough Resources", "Red Wizard Needs Food Badly", "Check Back After These Short Messages", "Leave me alone"];
-  document.getElementById('live-empty').textContent = LINES[Math.floor(Math.random()*LINES.length)];
-  document.getElementById('live-empty').hidden = TWITCH.length>0;
+
+  if (liveAccounts.length) {
+    status.hidden = true;
+    empty.hidden = true;
+  } else {
+    empty.hidden = false;
+    empty.textContent = failedChecks
+      ? 'Live status could not be checked. Please try again shortly.'
+      : 'Nobody is live right now.';
+    status.hidden = true;
+  }
+}
+
+// Refresh live status every minute so banners move in and out as streams start/end.
+function startLiveStatusChecks(){
+  renderLive();
+  window.setInterval(renderLive, 60000);
 }
 
 /* Simple class emblems drawn as inline SVG, so they show anywhere. */
@@ -264,7 +336,7 @@ function render(filter){
   renderInto(CLASS_DISCORDS, document.getElementById('list4'), document.getElementById('empty4'), f);
 }
 render();
-renderLive();
+startLiveStatusChecks();
 </script>
 </body>
 </html>
