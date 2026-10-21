@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MinMax Life Addon Resources</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;600&display=swap">
+<title>MinMax Life Resources</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;600&family=EB+Garamond:wght@700&display=swap">
 <style>
 :root{
   --bg:#f2efe8; --text:#1d2a33; --muted:#5b6a73; --card:#fffdf8; --line:#d9d3c4; --gold:#9a6b12;
@@ -19,32 +19,68 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Figtree,system-ui,sans-serif;line-height:1.5}
 main{max-width:1040px;margin:0 auto;padding:48px 20px 64px}
-h1{font-family:Marcellus,Georgia,serif;font-weight:400;font-size:clamp(2rem,6vw,3rem);margin:0 0 8px;letter-spacing:.01em}
-.lead{color:var(--muted);margin:0 0 28px;max-width:52ch}
+h1{font-family:"EB Garamond",Garamond,"Times New Roman",serif;font-weight:700;text-align:center;font-size:clamp(2rem,6vw,3rem);margin:0 0 8px;letter-spacing:.01em}
+.lead{color:var(--muted);margin:0 auto 28px;max-width:52ch;text-align:center}
+h2{font-family:Marcellus,Georgia,serif;font-weight:400;font-size:1.6rem;margin:0 0 16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+section+section{margin-top:40px}
 .search{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;margin-bottom:24px}
-.search:focus-visible,.banner:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.search:focus-visible,.banner:focus-visible,.toggle:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:720px){.list{grid-template-columns:1fr}}
-.banner{display:flex;align-items:stretch;min-height:104px;border-radius:10px;overflow:hidden;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);transition:transform .15s,border-color .15s}
+#list2{grid-template-columns:1fr}
+.banner{display:flex;align-items:stretch;min-height:83px;border-radius:10px;overflow:hidden;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);transition:transform .15s,border-color .15s}
 .banner:hover{transform:translateX(4px);border-color:var(--gold)}
-.art{position:relative;overflow:hidden;flex:0 0 112px;display:flex;align-items:center;justify-content:center;font-family:Marcellus,Georgia,serif;font-size:2.4rem;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.4);background-size:cover;background-position:center}
+.art{position:relative;overflow:hidden;flex:0 0 90px;display:flex;align-items:center;justify-content:center;font-family:Marcellus,Georgia,serif;font-size:1.9rem;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.4);background-size:cover;background-position:center}
 .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.info{padding:14px 18px;display:flex;flex-direction:column;justify-content:center;min-width:0}
-.name{font-family:Marcellus,Georgia,serif;font-size:1.3rem;margin:0}
-.desc{margin:2px 0 0;color:var(--muted);font-size:.95rem}
-.tag{margin-top:6px;font-size:.82rem;color:var(--gold);font-weight:600}
+.info{padding:11px 14px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.name{font-family:Marcellus,Georgia,serif;font-size:1.1rem;margin:0}
+.desc{margin:2px 0 0;color:var(--muted);font-size:.85rem}
+.tag{margin-top:4px;font-size:.75rem;color:var(--gold);font-weight:600}
+.live{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:720px){.live{grid-template-columns:1fr}}
+.player{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.frame{position:relative;aspect-ratio:16/9;background:#000}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cap{display:block;padding:10px 14px;font-family:Marcellus,Georgia,serif;font-size:1.1rem;color:inherit;text-decoration:none}
+.cap:hover{color:var(--gold)}
+.soon{cursor:default}
+.soon:hover{transform:none;border-color:var(--line)}
+.toggle{margin-top:12px;padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:.9rem;cursor:pointer}
+.toggle:hover{border-color:var(--gold)}
 .empty{color:var(--muted);padding:24px 0}
-@media (max-width:480px){.art{flex-basis:80px;font-size:1.8rem}}
+@media (max-width:480px){.art{flex-basis:64px;font-size:1.45rem}}
 @media (prefers-reduced-motion:reduce){.banner{transition:none}}
 </style>
 </head>
 <body>
 <main>
-  <h1>MinMax Life Addon Resources</h1>
-  <p class="lead">Tap a banner to open the addon’s download page.</p>
-  <input class="search" id="q" type="search" placeholder="Search addons" aria-label="Search addons">
-  <div class="list" id="list"></div>
-  <p class="empty" id="empty" hidden>No addons match that search.</p>
+  <h1>MinMax Life Resources</h1>
+  <p class="lead">Tap a banner to open its page.</p>
+  <section id="live">
+    <h2>LIVE NOW</h2>
+    <div class="live" id="live-list"></div>
+    <p class="empty" id="live-empty">No one is live right now. Embedded previews of live Guild Socials will appear here.</p>
+  </section>
+  <section>
+    <h2>Addons</h2>
+    <div class="list" id="list"></div>
+    <p class="empty" id="empty" hidden></p>
+  </section>
+  <section>
+    <h2>Online Resources</h2>
+    <div class="list" id="list2"></div>
+    <p class="empty" id="empty2" hidden></p>
+  </section>
+  <section>
+    <h2>Guild Socials</h2>
+    <div class="list" id="list3"></div>
+    <p class="empty" id="empty3" hidden></p>
+  </section>
+  <section>
+    <h2>Class Discords</h2>
+    <div class="list" id="list4"></div>
+    <p class="empty" id="empty4" hidden></p>
+  </section>
 </main>
 <script>
 /* EDIT THIS LIST. Add one line per addon.
@@ -62,21 +98,78 @@ const ADDONS = [
   {name:"Attune", desc:"Shows the quest chains behind dungeon prerequisites and attunements, and who else is on each step.", tag:"Dungeons", url:"https://www.curseforge.com/wow/addons/attune", color:"#8a4a1d", image:"https://media.forgecdn.net/avatars/thumbnails/379/727/64/64/637560544303936201.png"}
 ];
 
-const list = document.getElementById('list');
-const empty = document.getElementById('empty');
+/* Online Resources: same format as ADDONS. Add one line per site. */
+const RESOURCES = [
+  {name:"ZOCKIFY", desc:"WoW Forever Professions: all changes, bonuses and new recipes.", tag:"Professions", url:"https://www.zockify.com/forever/professions/", color:"#1f6f6b", image:""}
+];
 
-function render(filter){
-  const f = (filter||'').trim().toLowerCase();
+/* Guild Socials and Class Discords: same format as ADDONS. */
+const GUILD_SOCIALS = [
+  {name:"XalsFeet", desc:"Watch live on Twitch.", tag:"Twitch", url:"https://twitch.tv/XalsFeet", color:"#6441a5", image:"", twitch:"XalsFeet"}
+];
+const CLASS_DISCORDS = [
+  {name:"Druid", desc:"Druid class community.", tag:"Discord", url:"https://discord.gg/txxGuvQeEd", color:"#b5560a", image:""},
+  {name:"Hunter", desc:"Hunter class community.", tag:"Discord", url:"https://discord.gg/8TVHxRr", color:"#5f8a2e", image:""},
+  {name:"Mage", desc:"Mage class community.", tag:"Discord", url:"https://discord.gg/4svKQAc", color:"#1f7fa0", image:""},
+  {name:"Paladin", desc:"Paladin class community.", tag:"Discord", url:"https://discord.gg/Bqherze", color:"#b24a78", image:""},
+  {name:"Priest", desc:"Priest class community.", tag:"Discord", url:"https://discord.gg/priestclassic", color:"#7a7f8a", image:""},
+  {name:"Rogue", desc:"Rogue class community.", tag:"Discord", url:"https://discord.gg/Aks573M", color:"#9a8a1d", image:""},
+  {name:"Shaman", desc:"Shaman class community.", tag:"Discord", url:"https://discord.gg/VvBwBu2", color:"#1f4fa0", image:""},
+  {name:"Warlock", desc:"Warlock class community.", tag:"Discord", url:"https://discord.gg/D6TrRkq", color:"#5a4fa8", image:""},
+  {name:"Warrior", desc:"Warrior class community.", tag:"Discord", url:"https://discord.gg/WEQc4Njw2x", color:"#8a6a3d", image:""}
+];
+
+/* Twitch channels. Add the channel name (the part after twitch.tv/).
+   Each one gets a live player under Live Now and a banner under Guild Socials.
+   Example: {channel:"somestreamer", name:"Some Streamer", desc:"Guild raid streams."} */
+const TWITCH = [
+];
+
+function renderLive(){
+  const box = document.getElementById('live-list');
+  box.textContent = '';
+  TWITCH.forEach(t=>{
+    const card = document.createElement('div');
+    card.className = 'player';
+    const frame = document.createElement('div');
+    frame.className = 'frame';
+    const ifr = document.createElement('iframe');
+    ifr.src = 'https://player.twitch.tv/?channel='+encodeURIComponent(t.channel)+'&parent='+encodeURIComponent(location.hostname)+'&muted=true&autoplay=false';
+    ifr.title = (t.name||t.channel)+' on Twitch';
+    ifr.loading = 'lazy';
+    ifr.allowFullscreen = true;
+    frame.append(ifr);
+    const cap = document.createElement('a');
+    cap.className = 'cap';
+    cap.href = 'https://www.twitch.tv/'+encodeURIComponent(t.channel);
+    cap.target = '_blank';
+    cap.rel = 'noopener noreferrer';
+    cap.textContent = t.name||t.channel;
+    card.append(frame,cap);
+    box.append(card);
+  });
+  document.getElementById('live-empty').hidden = TWITCH.length>0;
+}
+
+const OPEN = {};
+
+function renderInto(items, list, empty, f){
   list.textContent = '';
   let shown = 0;
-  ADDONS.forEach(a=>{
+  const collapsed = !OPEN[list.id] && !f;
+  items.forEach(a=>{
     if(f && !(a.name+' '+a.desc+' '+a.tag).toLowerCase().includes(f)) return;
     shown++;
+    if(collapsed && shown>2) return;
     const link = document.createElement('a');
     link.className = 'banner';
-    link.href = a.url;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
+    if(a.url){
+      link.href = a.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    } else {
+      link.classList.add('soon');
+    }
 
     const art = document.createElement('div');
     art.className = 'art';
@@ -85,13 +178,14 @@ function render(filter){
     const letter = document.createElement('span');
     letter.textContent = a.name.charAt(0);
     art.append(letter);
-    if(a.image){
+    const imgUrl = a.image || (a.twitch ? 'https://unavatar.io/twitch/'+encodeURIComponent(a.twitch) : '');
+    if(imgUrl){
       const img = document.createElement('img');
       img.alt = '';
       img.referrerPolicy = 'no-referrer';
       img.onload = ()=>{ letter.hidden = true; };
       img.onerror = ()=>img.remove();
-      img.src = a.image;
+      img.src = imgUrl;
       art.append(img);
     }
 
@@ -105,10 +199,31 @@ function render(filter){
     link.append(art,info);
     list.append(link);
   });
+  let btn = document.getElementById('t-'+list.id);
+  if(!btn){
+    btn = document.createElement('button');
+    btn.id = 't-'+list.id;
+    btn.type = 'button';
+    btn.className = 'toggle';
+    btn.setAttribute('aria-controls', list.id);
+    btn.addEventListener('click',()=>{ OPEN[list.id] = !OPEN[list.id]; render(); });
+    list.after(btn);
+  }
+  btn.hidden = Boolean(f) || shown<=2;
+  btn.textContent = OPEN[list.id] ? 'Show less' : 'Show all '+shown;
+  btn.setAttribute('aria-expanded', String(Boolean(OPEN[list.id])));
+  empty.textContent = items.length ? 'No matches for that search.' : 'Nothing here yet.';
   empty.hidden = shown>0;
 }
-document.getElementById('q').addEventListener('input',e=>render(e.target.value));
+function render(filter){
+  const f = (filter||'').trim().toLowerCase();
+  renderInto(ADDONS, document.getElementById('list'), document.getElementById('empty'), f);
+  renderInto(RESOURCES, document.getElementById('list2'), document.getElementById('empty2'), f);
+  renderInto(GUILD_SOCIALS.concat(TWITCH.map(t=>({name:t.name||t.channel, desc:t.desc||'Watch live on Twitch.', tag:'Twitch', url:'https://www.twitch.tv/'+t.channel, color:'#6441a5', image:'', twitch:t.channel}))), document.getElementById('list3'), document.getElementById('empty3'), f);
+  renderInto(CLASS_DISCORDS, document.getElementById('list4'), document.getElementById('empty4'), f);
+}
 render();
+renderLive();
 </script>
 </body>
 </html>
