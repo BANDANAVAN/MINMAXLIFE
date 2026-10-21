@@ -28,6 +28,10 @@ h1{font-family:Cinzel,Georgia,"Times New Roman",serif;font-weight:700;text-align
 .lead a{color:var(--gold);font-weight:600;text-decoration:none}
 .lead a:hover{text-decoration:underline}
 .lead a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.join{text-align:center;margin:0 0 36px}
+.join a{display:inline-block;padding:12px 32px;border-radius:999px;font-family:Cinzel,Georgia,"Times New Roman",serif;font-weight:700;font-size:1.05rem;letter-spacing:.06em;color:#fff;text-decoration:none;background:linear-gradient(165deg,#7782f8 0%,#4752c4 100%);border:1px solid #98a1ff;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 14px rgba(0,0,0,.45);transition:transform .2s,box-shadow .2s}
+.join a:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 0 24px rgba(88,101,242,.7),0 10px 20px rgba(0,0,0,.5)}
+.join a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 h2{font-family:Cinzel,Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.04em;text-align:center;font-size:1.5rem;margin:0 0 16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
 section+section{margin-top:40px}
 .search{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;margin-bottom:24px}
@@ -36,6 +40,8 @@ section+section{margin-top:40px}
 @media (max-width:720px){.list{grid-template-columns:1fr}}
 .list.single{grid-template-columns:minmax(0,calc(50% - 8px));justify-content:center}
 @media (max-width:720px){.list.single{grid-template-columns:1fr}}
+#list4:not(.single) .banner:last-child:nth-child(odd){grid-column:1 / -1;justify-self:center;width:calc(50% - 8px)}
+@media (max-width:720px){#list4:not(.single) .banner:last-child:nth-child(odd){grid-column:auto;width:auto}}
 .banner{display:flex;align-items:stretch;min-height:83px;position:relative;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:linear-gradient(165deg,#2e2418 0%,var(--card) 60%);border:1px solid #6b5230;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 14px rgba(0,0,0,.45);transition:transform .2s,box-shadow .2s,border-color .2s}
 .banner::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,.13) 0%,rgba(255,255,255,.03) 38%,transparent 58%)}
 .banner:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 0 1px var(--gold),0 0 24px rgba(212,166,60,.5),0 10px 20px rgba(0,0,0,.5)}
@@ -69,6 +75,7 @@ section+section{margin-top:40px}
 <main>
   <h1>MinMax Life</h1>
   <p class="lead"><a href="https://flashesports.com/" target="_blank" rel="noopener noreferrer">MinMax Life — World First or Nothing</a></p>
+  <p class="join"><a href="https://discord.gg/ujcMBqwVjS" target="_blank" rel="noopener noreferrer">JOIN OUR DISCORD</a></p>
   <section id="live">
     <h2>LIVE NOW</h2>
     <div class="live" id="live-list"></div>
@@ -80,11 +87,6 @@ section+section{margin-top:40px}
     <p class="empty" id="empty" hidden></p>
   </section>
   <section>
-    <h2>Online Resources</h2>
-    <div class="list" id="list2"></div>
-    <p class="empty" id="empty2" hidden></p>
-  </section>
-  <section>
     <h2>Guild Socials</h2>
     <div class="list" id="list3"></div>
     <p class="empty" id="empty3" hidden></p>
@@ -93,6 +95,11 @@ section+section{margin-top:40px}
     <h2>Class Discords</h2>
     <div class="list" id="list4"></div>
     <p class="empty" id="empty4" hidden></p>
+  </section>
+  <section>
+    <h2>Online Resources</h2>
+    <div class="list" id="list2"></div>
+    <p class="empty" id="empty2" hidden></p>
   </section>
 </main>
 <script>
@@ -118,7 +125,8 @@ const RESOURCES = [
 
 /* Guild Socials and Class Discords: same format as ADDONS. */
 const GUILD_SOCIALS = [
-  {name:"XalsFeet", desc:"Watch live on Twitch.", tag:"Twitch", url:"https://twitch.tv/XalsFeet", color:"#6441a5", image:"", twitch:"XalsFeet"}
+  {name:"XalsFeet", desc:"Watch live on Twitch.", tag:"Twitch", url:"https://twitch.tv/XalsFeet", color:"#6441a5", image:"", twitch:"XalsFeet"},
+  {name:"DemonTwinkZB", desc:"Watch live on Twitch.", tag:"Twitch", url:"https://www.twitch.tv/demontwinkzb", color:"#6441a5", image:"", twitch:"demontwinkzb"}
 ];
 const CLASS_DISCORDS = [
   {name:"Druid", icon:"druid", desc:"Druid class community.", tag:"Discord", url:"https://discord.gg/txxGuvQeEd", color:"#b5560a", image:"https://warcraft.wiki.gg/images/ClassIcon_druid.png?a3333f"},
