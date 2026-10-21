@@ -187,6 +187,11 @@ async function renderLive(){
 
   const liveAccounts = results.filter(result => result.checked && result.live).map(result => result.account);
   const failedChecks = results.some(result => !result.checked);
+
+  // Guild Socials only displays Twitch accounts confirmed to be live.
+  LIVE_TWITCH_CHANNELS.clear();
+  liveAccounts.forEach(account => LIVE_TWITCH_CHANNELS.add(account.twitch.toLowerCase()));
+  render();
   liveAccounts.forEach(account => {
     const link = document.createElement('a');
     link.className = 'banner';
@@ -259,6 +264,7 @@ const ICONS = {
   warrior:'<path d="M4 4l11 11M20 4L9 15M13 17l4-4M11 17l-4-4M15 15l5 5M9 15l-5 5"/>'
 };
 
+const LIVE_TWITCH_CHANNELS = new Set();
 const OPEN = {};
 
 function renderInto(items, list, empty, f){
@@ -332,7 +338,7 @@ function render(filter){
   const f = (filter||'').trim().toLowerCase();
   renderInto(ADDONS, document.getElementById('list'), document.getElementById('empty'), f);
   renderInto(RESOURCES, document.getElementById('list2'), document.getElementById('empty2'), f);
-  renderInto(GUILD_SOCIALS.concat(TWITCH.map(t=>({name:t.name||t.channel, desc:t.desc||'Watch live on Twitch.', tag:'Twitch', url:'https://www.twitch.tv/'+t.channel, color:'#6441a5', image:'', twitch:t.channel}))), document.getElementById('list3'), document.getElementById('empty3'), f);
+  renderInto(GUILD_SOCIALS.concat(TWITCH.map(t=>({name:t.name||t.channel, desc:t.desc||'Watch live on Twitch.', tag:'Twitch', url:'https://www.twitch.tv/'+t.channel, color:'#6441a5', image:'', twitch:t.channel}))).filter(a=>a.twitch && LIVE_TWITCH_CHANNELS.has(a.twitch.toLowerCase())), document.getElementById('list3'), document.getElementById('empty3'), f);
   renderInto(CLASS_DISCORDS, document.getElementById('list4'), document.getElementById('empty4'), f);
 }
 render();
