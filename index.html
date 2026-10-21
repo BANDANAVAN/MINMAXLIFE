@@ -50,9 +50,32 @@ section+section{margin-top:40px}
 .info{padding:11px 14px;display:flex;flex-direction:column;justify-content:center;min-width:0}
 .name{font-family:Marcellus,Georgia,serif;font-size:1.1rem;margin:0}
 .desc{margin:2px 0 0;color:var(--muted);font-size:.85rem}
-#list3 .desc,#list4 .desc{display:none}
+#list3 .desc,#list4 .desc,#live-list .desc{display:none}
 .tag{margin-top:4px;font-size:.75rem;color:var(--gold);font-weight:600}
+.live{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:720px){.live{grid-template-columns:1fr}}
+.player{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.frame{position:relative;aspect-ratio:16/9;background:#000}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cap{display:block;padding:10px 14px;font-family:Marcellus,Georgia,serif;font-size:1.1rem;color:inherit;text-decoration:none}
+.cap:hover{color:var(--gold)}
+.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.role{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 8px;border-radius:14px;background:linear-gradient(165deg,#2e2418 0%,var(--card) 60%);border:1px solid #6b5230;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 14px rgba(0,0,0,.45);color:var(--gold);font-family:Cinzel,Georgia,"Times New Roman",serif;font-weight:700;font-size:1.25rem;letter-spacing:.08em}
+@media (max-width:480px){.role{font-size:1rem;padding:16px 4px}}
+.role small{font-family:Figtree,system-ui,sans-serif;font-weight:400;font-size:.85rem;letter-spacing:0;color:var(--muted)}
+.role small.need{color:#ff5a5f;font-weight:700;font-size:1rem;letter-spacing:.04em}
+.role .names{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 12px;font-family:Figtree,system-ui,sans-serif;font-weight:700;font-size:1rem;letter-spacing:.04em}
+.role .names .y{color:#ffd23f}
+.role .names .g{color:#4ade80}
+.role .names .r{color:#ff5a5f}
+.role .names .br{flex-basis:100%;height:0}
+.roles.one{grid-template-columns:minmax(0,calc(50% - 8px));justify-content:center}
+@media (max-width:720px){.roles.one{grid-template-columns:1fr}}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin-top:40px;align-items:start}
+.pair>section{margin-top:0}
+.pair .list{grid-template-columns:1fr}
+.pair #list4:not(.single) .banner:last-child:nth-child(odd){grid-column:auto;width:auto;justify-self:stretch}
+@media (max-width:720px){.pair{grid-template-columns:1fr;gap:40px}}
 .art svg{display:block}
 .soon{cursor:default}
 .soon:hover{transform:none;border-color:#6b5230;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 14px rgba(0,0,0,.45)}
@@ -60,6 +83,7 @@ section+section{margin-top:40px}
 .toggle{display:block;margin:12px auto 0;padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:.9rem;cursor:pointer}
 .toggle:hover{border-color:var(--gold)}
 .empty{color:var(--muted);padding:24px 0}
+#live-empty{font-family:Cinzel,Georgia,"Times New Roman",serif;font-weight:700;font-size:1.1rem;letter-spacing:.04em;text-align:center}
 @media (max-width:480px){.art{flex-basis:64px;font-size:1.45rem}}
 @media (prefers-reduced-motion:reduce){.banner{transition:none}}
 </style>
@@ -69,10 +93,19 @@ section+section{margin-top:40px}
   <h1>MinMax Life</h1>
   <p class="lead"><a href="https://flashesports.com/" target="_blank" rel="noopener noreferrer">MinMax Life — World First or Nothing</a></p>
   <p class="join"><a href="https://discord.gg/ujcMBqwVjS" target="_blank" rel="noopener noreferrer">JOIN OUR DISCORD</a></p>
-<section>
-    <h2>Addons</h2>
-    <div class="list" id="list"></div>
-    <p class="empty" id="empty" hidden></p>
+  <section>
+    <h2>RAID SCHEDULE</h2>
+    <div class="roles one">
+      <div class="role"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>RAID SCHEDULE</span><small>Time TBA</small></div>
+    </div>
+  </section>
+  <section>
+    <h2>AVAILABLE ROLES</h2>
+    <div class="roles">
+      <div class="role"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/></svg><span>TANK</span><div class="names"><span class="r">Druid</span><span class="r">Paladin</span><span class="r">Warrior</span></div></div>
+      <div class="role"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg><span>HEAL</span><div class="names"><span class="y">Priest</span><span class="y">Paladin</span><span class="y">Druid</span><span class="br"></span><span class="g">Shaman</span></div></div>
+      <div class="role"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l11 11M20 4L9 15M13 17l4-4M11 17l-4-4M15 15l5 5M9 15l-5 5"/></svg><span>DPS</span><small class="need">Warlocks</small></div>
+    </div>
   </section>
   <section>
     <h2>Guild Socials</h2>
@@ -80,15 +113,22 @@ section+section{margin-top:40px}
     <p class="empty" id="empty3" hidden></p>
   </section>
   <section>
-    <h2>Class Discords</h2>
-    <div class="list" id="list4"></div>
-    <p class="empty" id="empty4" hidden></p>
+    <h2>Addons</h2>
+    <div class="list" id="list"></div>
+    <p class="empty" id="empty" hidden></p>
   </section>
-  <section>
-    <h2>Online Resources</h2>
-    <div class="list" id="list2"></div>
-    <p class="empty" id="empty2" hidden></p>
-  </section>
+  <div class="pair">
+    <section>
+      <h2>Class Discords</h2>
+      <div class="list" id="list4"></div>
+      <p class="empty" id="empty4" hidden></p>
+    </section>
+    <section>
+      <h2>Online Resources</h2>
+      <div class="list" id="list2"></div>
+      <p class="empty" id="empty2" hidden></p>
+    </section>
+  </div>
 </main>
 <script>
 /* EDIT THIS LIST. Add one line per addon.
@@ -113,7 +153,7 @@ const RESOURCES = [
 
 /* Guild Socials and Class Discords: same format as ADDONS. */
 const GUILD_SOCIALS = [
-  {name:"XalsFeet", desc:"Watch live on Twitch.", tag:"Twitch", url:"https://twitch.tv/XalsFeet", color:"#6441a5", image:"", twitch:"XalsFeet"},
+  {name:"XalsFeet", desc:"Watch live on Twitch.", tag:"Twitch", url:"https://twitch.tv/XalsFeet", color:"#6441a5", image:"", twitch:"XalsFeet"}
 ];
 const CLASS_DISCORDS = [
   {name:"Druid", icon:"druid", desc:"Druid class community.", tag:"Discord", url:"https://discord.gg/txxGuvQeEd", color:"#b5560a", image:"https://warcraft.wiki.gg/images/ClassIcon_druid.png?a3333f"},
@@ -127,11 +167,6 @@ const CLASS_DISCORDS = [
   {name:"Warrior", icon:"warrior", desc:"Warrior class community.", tag:"Discord", url:"https://discord.gg/WEQc4Njw2x", color:"#8a6a3d", image:"https://warcraft.wiki.gg/images/ClassIcon_warrior.png?2c4dad"}
 ];
 
-/* Twitch channels. Add the channel name (the part after twitch.tv/).
-   Each one gets a live player under Live Now and a banner under Guild Socials.
-   Example: {channel:"somestreamer", name:"Some Streamer", desc:"Guild raid streams."} */
-const TWITCH = [
-];
 
 /* Simple class emblems drawn as inline SVG, so they show anywhere. */
 const ICONS = {
@@ -151,7 +186,7 @@ const OPEN = {};
 function renderInto(items, list, empty, f){
   list.textContent = '';
   let shown = 0;
-  const LIMIT = list.id==='list4' ? 0 : 2;
+  const LIMIT = list.id==='list4' ? 0 : list.id==='live-list' ? 99 : 2;
   const collapsed = !OPEN[list.id] && !f;
   items.forEach(a=>{
     if(f && !(a.name+' '+a.desc+' '+a.tag).toLowerCase().includes(f)) return;
@@ -219,7 +254,7 @@ function render(filter){
   const f = (filter||'').trim().toLowerCase();
   renderInto(ADDONS, document.getElementById('list'), document.getElementById('empty'), f);
   renderInto(RESOURCES, document.getElementById('list2'), document.getElementById('empty2'), f);
-  renderInto(GUILD_SOCIALS.concat(TWITCH.map(t=>({name:t.name||t.channel, desc:t.desc||'Watch live on Twitch.', tag:'Twitch', url:'https://www.twitch.tv/'+t.channel, color:'#6441a5', image:'', twitch:t.channel}))), document.getElementById('list3'), document.getElementById('empty3'), f);
+  renderInto(GUILD_SOCIALS, document.getElementById('list3'), document.getElementById('empty3'), f);
   renderInto(CLASS_DISCORDS, document.getElementById('list4'), document.getElementById('empty4'), f);
 }
 render();
