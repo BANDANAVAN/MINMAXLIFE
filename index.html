@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MinMax Life Resources</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;600&family=EB+Garamond:wght@700&display=swap">
+<title>MinMax Life</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;600&family=Cinzel:wght@700&display=swap">
 <style>
 :root{
   --bg:#f2efe8; --text:#1d2a33; --muted:#5b6a73; --card:#fffdf8; --line:#d9d3c4; --gold:#9a6b12;
@@ -16,25 +16,35 @@
 }
 :root[data-theme="dark"]{--bg:#0f1a22; --text:#e8e4d8; --muted:#97a6ae; --card:#16252f; --line:#2a3d49; --gold:#e0b04a;}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
+/* WoW look: fixed dark stone and leather with gold trim, in every mode */
+:root:root:root{--bg:#14100c;--text:#eadfc4;--muted:#b3a483;--card:#211a13;--line:#5a4527;--gold:#d4a63c;color-scheme:dark}
+h1,h2{color:var(--gold)}
+h1{text-shadow:0 2px 8px rgba(0,0,0,.6)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Figtree,system-ui,sans-serif;line-height:1.5}
+body{margin:0;background-color:var(--bg);background-image:radial-gradient(ellipse 90% 420px at 50% 0%,#3d2d1b,transparent);background-repeat:no-repeat;color:var(--text);font-family:Figtree,system-ui,sans-serif;line-height:1.5}
 main{max-width:1040px;margin:0 auto;padding:48px 20px 64px}
-h1{font-family:"EB Garamond",Garamond,"Times New Roman",serif;font-weight:700;text-align:center;font-size:clamp(2rem,6vw,3rem);margin:0 0 8px;letter-spacing:.01em}
+h1{font-family:Cinzel,Georgia,"Times New Roman",serif;font-weight:700;text-align:center;font-size:clamp(2.4rem,8vw,3.6rem);margin:0 0 8px;letter-spacing:.04em}
 .lead{color:var(--muted);margin:0 auto 28px;max-width:52ch;text-align:center}
-h2{font-family:Marcellus,Georgia,serif;font-weight:400;font-size:1.6rem;margin:0 0 16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.lead a{color:var(--gold);font-weight:600;text-decoration:none}
+.lead a:hover{text-decoration:underline}
+.lead a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+h2{font-family:Cinzel,Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.04em;text-align:center;font-size:1.5rem;margin:0 0 16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
 section+section{margin-top:40px}
 .search{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;margin-bottom:24px}
 .search:focus-visible,.banner:focus-visible,.toggle:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:720px){.list{grid-template-columns:1fr}}
-#list2{grid-template-columns:1fr}
-.banner{display:flex;align-items:stretch;min-height:83px;border-radius:10px;overflow:hidden;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);transition:transform .15s,border-color .15s}
-.banner:hover{transform:translateX(4px);border-color:var(--gold)}
-.art{position:relative;overflow:hidden;flex:0 0 90px;display:flex;align-items:center;justify-content:center;font-family:Marcellus,Georgia,serif;font-size:1.9rem;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.4);background-size:cover;background-position:center}
+.list.single{grid-template-columns:minmax(0,calc(50% - 8px));justify-content:center}
+@media (max-width:720px){.list.single{grid-template-columns:1fr}}
+.banner{display:flex;align-items:stretch;min-height:83px;position:relative;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:linear-gradient(165deg,#2e2418 0%,var(--card) 60%);border:1px solid #6b5230;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 14px rgba(0,0,0,.45);transition:transform .2s,box-shadow .2s,border-color .2s}
+.banner::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,.13) 0%,rgba(255,255,255,.03) 38%,transparent 58%)}
+.banner:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 0 1px var(--gold),0 0 24px rgba(212,166,60,.5),0 10px 20px rgba(0,0,0,.5)}
+.art{position:relative;overflow:hidden;margin:8px 0 8px 8px;border-radius:10px;flex:0 0 90px;display:flex;align-items:center;justify-content:center;font-family:Marcellus,Georgia,serif;font-size:1.9rem;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.4);background-size:cover;background-position:center}
 .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .info{padding:11px 14px;display:flex;flex-direction:column;justify-content:center;min-width:0}
 .name{font-family:Marcellus,Georgia,serif;font-size:1.1rem;margin:0}
 .desc{margin:2px 0 0;color:var(--muted);font-size:.85rem}
+#list3 .desc,#list4 .desc{display:none}
 .tag{margin-top:4px;font-size:.75rem;color:var(--gold);font-weight:600}
 .live{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:720px){.live{grid-template-columns:1fr}}
@@ -43,23 +53,26 @@ section+section{margin-top:40px}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .cap{display:block;padding:10px 14px;font-family:Marcellus,Georgia,serif;font-size:1.1rem;color:inherit;text-decoration:none}
 .cap:hover{color:var(--gold)}
+.art svg{display:block}
 .soon{cursor:default}
-.soon:hover{transform:none;border-color:var(--line)}
-.toggle{margin-top:12px;padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:.9rem;cursor:pointer}
+.soon:hover{transform:none;border-color:#6b5230;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 14px rgba(0,0,0,.45)}
+.toggle[hidden]{display:none}
+.toggle{display:block;margin:12px auto 0;padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:.9rem;cursor:pointer}
 .toggle:hover{border-color:var(--gold)}
 .empty{color:var(--muted);padding:24px 0}
+#live-empty{font-family:Cinzel,Georgia,"Times New Roman",serif;font-weight:700;font-size:1.1rem;letter-spacing:.04em;text-align:center}
 @media (max-width:480px){.art{flex-basis:64px;font-size:1.45rem}}
 @media (prefers-reduced-motion:reduce){.banner{transition:none}}
 </style>
 </head>
 <body>
 <main>
-  <h1>MinMax Life Resources</h1>
-  <p class="lead">Tap a banner to open its page.</p>
+  <h1>MinMax Life</h1>
+  <p class="lead"><a href="https://flashesports.com/" target="_blank" rel="noopener noreferrer">MinMax Life — World First or Nothing</a></p>
   <section id="live">
     <h2>LIVE NOW</h2>
     <div class="live" id="live-list"></div>
-    <p class="empty" id="live-empty">No one is live right now. Embedded previews of live Guild Socials will appear here.</p>
+    <p class="empty" id="live-empty">Not Enough Resources</p>
   </section>
   <section>
     <h2>Addons</h2>
@@ -108,15 +121,15 @@ const GUILD_SOCIALS = [
   {name:"XalsFeet", desc:"Watch live on Twitch.", tag:"Twitch", url:"https://twitch.tv/XalsFeet", color:"#6441a5", image:"", twitch:"XalsFeet"}
 ];
 const CLASS_DISCORDS = [
-  {name:"Druid", desc:"Druid class community.", tag:"Discord", url:"https://discord.gg/txxGuvQeEd", color:"#b5560a", image:""},
-  {name:"Hunter", desc:"Hunter class community.", tag:"Discord", url:"https://discord.gg/8TVHxRr", color:"#5f8a2e", image:""},
-  {name:"Mage", desc:"Mage class community.", tag:"Discord", url:"https://discord.gg/4svKQAc", color:"#1f7fa0", image:""},
-  {name:"Paladin", desc:"Paladin class community.", tag:"Discord", url:"https://discord.gg/Bqherze", color:"#b24a78", image:""},
-  {name:"Priest", desc:"Priest class community.", tag:"Discord", url:"https://discord.gg/priestclassic", color:"#7a7f8a", image:""},
-  {name:"Rogue", desc:"Rogue class community.", tag:"Discord", url:"https://discord.gg/Aks573M", color:"#9a8a1d", image:""},
-  {name:"Shaman", desc:"Shaman class community.", tag:"Discord", url:"https://discord.gg/VvBwBu2", color:"#1f4fa0", image:""},
-  {name:"Warlock", desc:"Warlock class community.", tag:"Discord", url:"https://discord.gg/D6TrRkq", color:"#5a4fa8", image:""},
-  {name:"Warrior", desc:"Warrior class community.", tag:"Discord", url:"https://discord.gg/WEQc4Njw2x", color:"#8a6a3d", image:""}
+  {name:"Druid", icon:"druid", desc:"Druid class community.", tag:"Discord", url:"https://discord.gg/txxGuvQeEd", color:"#b5560a", image:"https://warcraft.wiki.gg/images/ClassIcon_druid.png?a3333f"},
+  {name:"Hunter", icon:"hunter", desc:"Hunter class community.", tag:"Discord", url:"https://discord.gg/8TVHxRr", color:"#5f8a2e", image:"https://warcraft.wiki.gg/images/ClassIcon_hunter.png?45616d"},
+  {name:"Mage", icon:"mage", desc:"Mage class community.", tag:"Discord", url:"https://discord.gg/4svKQAc", color:"#1f7fa0", image:"https://warcraft.wiki.gg/images/ClassIcon_mage.png?2574d1"},
+  {name:"Paladin", icon:"paladin", desc:"Paladin class community.", tag:"Discord", url:"https://discord.gg/Bqherze", color:"#b24a78", image:"https://warcraft.wiki.gg/images/ClassIcon_paladin.png?4d2aad"},
+  {name:"Priest", icon:"priest", desc:"Priest class community.", tag:"Discord", url:"https://discord.gg/priestclassic", color:"#7a7f8a", image:"https://warcraft.wiki.gg/images/ClassIcon_priest.png?55e800"},
+  {name:"Rogue", icon:"rogue", desc:"Rogue class community.", tag:"Discord", url:"https://discord.gg/Aks573M", color:"#9a8a1d", image:"https://warcraft.wiki.gg/images/ClassIcon_rogue.png?3cfde1"},
+  {name:"Shaman", icon:"shaman", desc:"Shaman class community.", tag:"Discord", url:"https://discord.gg/VvBwBu2", color:"#1f4fa0", image:"https://warcraft.wiki.gg/images/ClassIcon_shaman.png?fa2e62"},
+  {name:"Warlock", icon:"warlock", desc:"Warlock class community.", tag:"Discord", url:"https://discord.gg/D6TrRkq", color:"#5a4fa8", image:"https://warcraft.wiki.gg/images/ClassIcon_warlock.png?2afb06"},
+  {name:"Warrior", icon:"warrior", desc:"Warrior class community.", tag:"Discord", url:"https://discord.gg/WEQc4Njw2x", color:"#8a6a3d", image:"https://warcraft.wiki.gg/images/ClassIcon_warrior.png?2c4dad"}
 ];
 
 /* Twitch channels. Add the channel name (the part after twitch.tv/).
@@ -148,19 +161,35 @@ function renderLive(){
     card.append(frame,cap);
     box.append(card);
   });
+  const LINES = ["Not Enough Resources", "Red Wizard Needs Food Badly", "Check Back After These Short Messages", "Leave me alone"];
+  document.getElementById('live-empty').textContent = LINES[Math.floor(Math.random()*LINES.length)];
   document.getElementById('live-empty').hidden = TWITCH.length>0;
 }
+
+/* Simple class emblems drawn as inline SVG, so they show anywhere. */
+const ICONS = {
+  druid:'<circle cx="5.5" cy="11" r="1.8"/><circle cx="9.5" cy="6.5" r="1.8"/><circle cx="14.5" cy="6.5" r="1.8"/><circle cx="18.5" cy="11" r="1.8"/><path d="M12 21c-3 0-5-1.6-5-3.6 0-2.2 2.4-4.4 5-4.4s5 2.2 5 4.4c0 2-2 3.6-5 3.6z"/>',
+  hunter:'<path d="M6 3c9 2 9 16 0 18M6 3v18M3 12h17M16 8l4 4-4 4"/>',
+  mage:'<path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/>',
+  paladin:'<path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M12 7v9M8.5 10.5h7"/>',
+  priest:'<circle cx="12" cy="12" r="9"/><path d="M12 6v12M8 10h8"/>',
+  rogue:'<path d="M12 2l3 9-3 3-3-3z"/><path d="M7 14h10M12 14v7"/>',
+  shaman:'<path d="M13 2L5 13h6l-1 9 8-12h-6z"/>',
+  warlock:'<path d="M12 3C7.5 3 5 6 5 9.5c0 2.3 1 3.7 2.5 4.6V18h9v-3.9C18 13.2 19 11.8 19 9.5 19 6 16.5 3 12 3z"/><circle cx="9.3" cy="10" r="1.4"/><circle cx="14.7" cy="10" r="1.4"/><path d="M10.5 18v3M13.5 18v3"/>',
+  warrior:'<path d="M4 4l11 11M20 4L9 15M13 17l4-4M11 17l-4-4M15 15l5 5M9 15l-5 5"/>'
+};
 
 const OPEN = {};
 
 function renderInto(items, list, empty, f){
   list.textContent = '';
   let shown = 0;
+  const LIMIT = list.id==='list4' ? 0 : 2;
   const collapsed = !OPEN[list.id] && !f;
   items.forEach(a=>{
     if(f && !(a.name+' '+a.desc+' '+a.tag).toLowerCase().includes(f)) return;
     shown++;
-    if(collapsed && shown>2) return;
+    if(collapsed && shown>LIMIT) return;
     const link = document.createElement('a');
     link.className = 'banner';
     if(a.url){
@@ -177,6 +206,9 @@ function renderInto(items, list, empty, f){
     art.style.background = 'linear-gradient(135deg,'+a.color+',#10202b)';
     const letter = document.createElement('span');
     letter.textContent = a.name.charAt(0);
+    if(a.icon && ICONS[a.icon]){
+      letter.innerHTML = '<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))">'+ICONS[a.icon]+'</svg>';
+    }
     art.append(letter);
     const imgUrl = a.image || (a.twitch ? 'https://unavatar.io/twitch/'+encodeURIComponent(a.twitch) : '');
     if(imgUrl){
@@ -199,6 +231,7 @@ function renderInto(items, list, empty, f){
     link.append(art,info);
     list.append(link);
   });
+  list.classList.toggle('single', shown===1);
   let btn = document.getElementById('t-'+list.id);
   if(!btn){
     btn = document.createElement('button');
@@ -209,8 +242,8 @@ function renderInto(items, list, empty, f){
     btn.addEventListener('click',()=>{ OPEN[list.id] = !OPEN[list.id]; render(); });
     list.after(btn);
   }
-  btn.hidden = Boolean(f) || shown<=2;
-  btn.textContent = OPEN[list.id] ? 'Show less' : 'Show all '+shown;
+  btn.hidden = Boolean(f) || shown<=LIMIT;
+  btn.textContent = OPEN[list.id] ? '▴ Show less ▴' : '▾ Show all ▾';
   btn.setAttribute('aria-expanded', String(Boolean(OPEN[list.id])));
   empty.textContent = items.length ? 'No matches for that search.' : 'Nothing here yet.';
   empty.hidden = shown>0;
