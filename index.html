@@ -71,6 +71,9 @@ section+section{margin-top:40px}
 .role .names .br{flex-basis:100%;height:0}
 .roles.one{grid-template-columns:minmax(0,calc(50% - 8px));justify-content:center}
 @media (max-width:720px){.roles.one{grid-template-columns:1fr}}
+#list{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){#list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){#list{grid-template-columns:1fr}}
 .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin-top:40px;align-items:start}
 .pair>section{margin-top:0}
 .pair .list{grid-template-columns:1fr}
@@ -143,7 +146,11 @@ const ADDONS = [
   {name:"GearQuest Forever", desc:"Scores and ranks discovered gear for your current level, handy for min-maxing as you level.", tag:"Gear", url:"https://www.curseforge.com/wow/addons/gearquest-forever", color:"#1f6f6b", image:"https://media.forgecdn.net/avatars/thumbnails/2051/657/64/64/639251946520387830.png"},
   {name:"Baganator", desc:"A bag addon, a personal favorite.", tag:"Bags", url:"https://www.curseforge.com/wow/addons/baganator", color:"#4a4f8a", image:"https://media.forgecdn.net/avatars/thumbnails/956/327/64/64/638449029664561508.png"},
   {name:"Syndicator", desc:"Pairs with Baganator to track what is stored where across your characters’ bags.", tag:"Bags", url:"https://www.curseforge.com/wow/addons/syndicator", color:"#5a3f7a", image:"https://media.forgecdn.net/avatars/thumbnails/1402/63/64/64/638908766717324864.png"},
-  {name:"Attune", desc:"Shows the quest chains behind dungeon prerequisites and attunements, and who else is on each step.", tag:"Dungeons", url:"https://www.curseforge.com/wow/addons/attune", color:"#8a4a1d", image:"https://media.forgecdn.net/avatars/thumbnails/379/727/64/64/637560544303936201.png"}
+  {name:"Attune", desc:"Shows the quest chains behind dungeon prerequisites and attunements, and who else is on each step.", tag:"Dungeons", url:"https://www.curseforge.com/wow/addons/attune", color:"#8a4a1d", image:"https://media.forgecdn.net/avatars/thumbnails/379/727/64/64/637560544303936201.png"},
+  {name:"Forever Fishing", desc:"Fishing addon.", tag:"Professions", url:"https://www.curseforge.com/wow/addons/forever-fishing", color:"#2a6f97", image:""},
+  {name:"RestedXP", desc:"Step-by-step leveling guides.", tag:"Leveling", url:"https://www.curseforge.com/wow/addons/restedxp-guide", color:"#a23b3b", image:""},
+  {name:"Forever Save My Config", desc:"Saves your addon configuration.", tag:"Quality of life", url:"https://www.curseforge.com/wow/addons/forever-save-my-config", color:"#5b7a3a", image:""},
+  {name:"Spell Activation Overlay", desc:"Shows spell proc overlays like retail.", tag:"Combat", url:"https://www.curseforge.com/wow/addons/spellactivationoverlay", color:"#8a4f9e", image:""}
 ];
 
 /* Online Resources: same format as ADDONS. Add one line per site. */
@@ -186,7 +193,7 @@ const OPEN = {};
 function renderInto(items, list, empty, f){
   list.textContent = '';
   let shown = 0;
-  const LIMIT = list.id==='list4' ? 0 : list.id==='live-list' ? 99 : 2;
+  const LIMIT = list.id==='list4' ? 0 : list.id==='live-list' ? 99 : list.id==='list' ? 3 : 2;
   const collapsed = !OPEN[list.id] && !f;
   items.forEach(a=>{
     if(f && !(a.name+' '+a.desc+' '+a.tag).toLowerCase().includes(f)) return;
