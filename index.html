@@ -147,15 +147,15 @@ const ADDONS = [
   {name:"Baganator", desc:"A bag addon, a personal favorite.", tag:"Bags", url:"https://www.curseforge.com/wow/addons/baganator", color:"#4a4f8a", image:"https://media.forgecdn.net/avatars/thumbnails/956/327/64/64/638449029664561508.png"},
   {name:"Syndicator", desc:"Pairs with Baganator to track what is stored where across your characters’ bags.", tag:"Bags", url:"https://www.curseforge.com/wow/addons/syndicator", color:"#5a3f7a", image:"https://media.forgecdn.net/avatars/thumbnails/1402/63/64/64/638908766717324864.png"},
   {name:"Attune", desc:"Shows the quest chains behind dungeon prerequisites and attunements, and who else is on each step.", tag:"Dungeons", url:"https://www.curseforge.com/wow/addons/attune", color:"#8a4a1d", image:"https://media.forgecdn.net/avatars/thumbnails/379/727/64/64/637560544303936201.png"},
-  {name:"Forever Fishing", desc:"Fishing addon.", tag:"Professions", url:"https://www.curseforge.com/wow/addons/forever-fishing", color:"#2a6f97", image:""},
-  {name:"RestedXP", desc:"Step-by-step leveling guides.", tag:"Leveling", url:"https://www.curseforge.com/wow/addons/restedxp-guide", color:"#a23b3b", image:""},
-  {name:"Forever Save My Config", desc:"Saves your addon configuration.", tag:"Quality of life", url:"https://www.curseforge.com/wow/addons/forever-save-my-config", color:"#5b7a3a", image:""},
-  {name:"Spell Activation Overlay", desc:"Shows spell proc overlays like retail.", tag:"Combat", url:"https://www.curseforge.com/wow/addons/spellactivationoverlay", color:"#8a4f9e", image:""}
+  {name:"Forever Fishing", desc:"Fishing addon.", tag:"Professions", url:"https://www.curseforge.com/wow/addons/forever-fishing", color:"#2a6f97", image:"https://media.forgecdn.net/avatars/thumbnails/2065/903/64/64/639257796822391159.png"},
+  {name:"RestedXP", desc:"Step-by-step leveling guides.", tag:"Leveling", url:"https://www.curseforge.com/wow/addons/restedxp-guide", color:"#a23b3b", image:"https://media.forgecdn.net/avatars/thumbnails/2066/254/64/64/639257936596340972.png"},
+  {name:"Spell Activation Overlay", desc:"Shows spell proc overlays like retail.", tag:"Combat", url:"https://www.curseforge.com/wow/addons/spellactivationoverlay", color:"#8a4f9e", image:"https://media.forgecdn.net/avatars/thumbnails/578/155/64/64/637942165872341689.png"}
 ];
 
 /* Online Resources: same format as ADDONS. Add one line per site. */
 const RESOURCES = [
-  {name:"ZOCKIFY", desc:"WoW Forever Professions: all changes, bonuses and new recipes.", tag:"Professions", url:"https://www.zockify.com/forever/professions/", color:"#1f6f6b", image:""}
+  {name:"ZOCKIFY", desc:"WoW Forever Professions: all changes, bonuses and new recipes.", tag:"Professions", url:"https://www.zockify.com/forever/professions/", color:"#1f6f6b", image:""},
+  {name:"RestedXP Shop", desc:"Get the RestedXP leveling guides.", tag:"Leveling", url:"https://shop.restedxp.com/ref/unsafesnek/", color:"#a23b3b", image:"https://media.forgecdn.net/avatars/thumbnails/2066/254/64/64/639257936596340972.png"}
 ];
 
 /* Guild Socials and Class Discords: same format as ADDONS. */
@@ -262,9 +262,4 @@ function render(filter){
   renderInto(ADDONS, document.getElementById('list'), document.getElementById('empty'), f);
   renderInto(RESOURCES, document.getElementById('list2'), document.getElementById('empty2'), f);
   renderInto(GUILD_SOCIALS, document.getElementById('list3'), document.getElementById('empty3'), f);
-  renderInto(CLASS_DISCORDS, document.getElementById('list4'), document.getElementById('empty4'), f);
-}
-render();
-</script>
-</body>
-</html>
+  
